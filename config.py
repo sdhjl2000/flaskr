@@ -4,7 +4,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = 'bot@#hjl!'
+    SECRET_KEY = os.urandom(24)
     USERNAME = 'admin'
     PASSWORD='admin'
     SQLALCHEMY_DATABASE_URI = "postgresql://localhost/dev"

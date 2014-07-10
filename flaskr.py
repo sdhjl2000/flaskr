@@ -1,24 +1,27 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, session, redirect, url_for, abort, flash, render_template
+from flask import Flask, request, session, redirect, url_for, abort, flash, render_template, current_app
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_debugtoolbar import DebugToolbarExtension
 import time
 from datetime import date
+from datetime import datetime
 import logging
 from logging.handlers import WatchedFileHandler
+from flask.ext.bootstrap import Bootstrap
+from flask.ext.moment import Moment
 # create our little application :)
 app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
-
+moment = Moment(app)
 db = SQLAlchemy(app)
-toolbar = DebugToolbarExtension(app)
-
+#toolbar = DebugToolbarExtension(app)
+bootstrap = Bootstrap(app)
 from models import *
 
-@app.route('/path/<path:rd>')
-def redirect(rd):
-    return rd
+@app.route('/path/<name>')
+def redirect(name):
+    return render_template('bootstrap.html', name= name, dt=datetime.utcnow() )
 
 
 @app.route('/')
